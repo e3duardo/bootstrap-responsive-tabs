@@ -4,7 +4,9 @@
     var settings = $.extend({
       // These are the defaults.
       minTabWidth: "80",
-      maxTabWidth: "150"
+      maxTabWidth: "150",
+      navClass: "responsive-tabs",
+      containerClass: "responsive-tabs-container"
     }, options );
 
     // Helper function to debounce window resize events
@@ -44,8 +46,12 @@
           TABS_OBJECT.activeTabId = 1;
           TABS_OBJECT.tabsHorizontalContainer = $container;
           
-          TABS_OBJECT.tabsHorizontalContainer.addClass("responsive-tabs").wrap("<div class='responsive-tabs-container clearfix'></div>");
+          TABS_OBJECT.tabsHorizontalContainer.addClass(settings.navClass);
 
+          if(TABS_OBJECT.tabsHorizontalContainer.closest('.'+settings.containerClass).length < 0){
+        	  	TABS_OBJECT.tabsHorizontalContainer.wrap("<div class='"+settings.containerClass+" clearfix'></div>");
+          }
+          
           // Update tabs
           var update_tabs = function () {
 
