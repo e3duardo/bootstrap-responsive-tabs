@@ -6,7 +6,8 @@
       minTabWidth: "80",
       maxTabWidth: "150",
       navClass: "responsive-tabs",
-      containerClass: "responsive-tabs-container"
+      containerClass: "responsive-tabs-container",
+      label: "Tabs"
     }, options );
 
     // Helper function to debounce window resize events
@@ -153,10 +154,10 @@
             // This will be toggled if tabs can't fit in a given viewport size
 
             TABS_OBJECT.tabsHorizontalContainer.after("<div class='nav navbar-nav navbar-right dropdown tabs-dropdown js-tabs-dropdown'> \
-              <a href='#' class='dropdown-toggle' data-toggle='dropdown'><span class='count'>Tabs </span><b class='caret'></b></a> \
+              <a href='#' class='dropdown-toggle' data-toggle='dropdown'><span class='count'>"+settings.label+" </span><b class='caret'></b></a> \
               <ul class='dropdown-menu' role='menu'> \
               <div class='dropdown-header visible-xs'>\
-                <p class='count'>Tabs</p> \
+                <p class='count'>"+settings.label+"</p> \
                 <button type='button' class='close' data-dismiss='dropdown'><span aria-hidden='true'>&times;</span></button> \
                 <div class='divider visible-xs'></div> \
               </div> \
