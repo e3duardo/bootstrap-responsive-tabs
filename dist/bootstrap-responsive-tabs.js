@@ -38,7 +38,7 @@
     this.each(function() {
 
       $container = $(this);
-      
+
       var ResponsiveTabs;
       ResponsiveTabs = (function () {
         function ResponsiveTabs() {
@@ -46,13 +46,13 @@
           TABS_OBJECT = this;
           TABS_OBJECT.activeTabId = 1;
           TABS_OBJECT.tabsHorizontalContainer = $container;
-          
+
           TABS_OBJECT.tabsHorizontalContainer.addClass(settings.navClass);
 
           if(TABS_OBJECT.tabsHorizontalContainer.closest('.'+settings.containerClass).length < 0){
         	  	TABS_OBJECT.tabsHorizontalContainer.wrap("<div class='"+settings.containerClass+" clearfix'></div>");
           }
-          
+
           // Update tabs
           var update_tabs = function () {
 
@@ -77,7 +77,7 @@
                   .css("max-width", settings.maxTabWidth + "px");
               });
             }
-            
+
             var defaultTabWidth = $tabs.first().width();
             var numTabs = $tabs.length;
 
@@ -95,14 +95,14 @@
             }
 
             // Set new dynamic width for each tab based on calculation above
-            var tabWidth = 100 / numVisibleHorizontalTabs;
-            var tabPercent = tabWidth + "%";
-            $tabs.width(tabPercent);
+//            var tabWidth = 100 / numVisibleHorizontalTabs;
+//            var tabPercent = tabWidth + "%";
+            $tabs.width("calc( ( 100% - 130px - 3px ) / "+numVisibleHorizontalTabs+")");
 
             // Toggle the Tabs dropdown if there are more tabs than can fit in the tabs horizontal container
             var hasVerticalTabs = (numVisibleVerticalTabs > 0)
             TABS_OBJECT.tabsVerticalContainer.toggleClass("hidden", !hasVerticalTabs)
-            TABS_OBJECT.tabsVerticalContainer.siblings(".dropdown-toggle").find(".count").text("Tabs " + "(" + numVisibleVerticalTabs + ")");
+            TABS_OBJECT.tabsVerticalContainer.siblings(".dropdown-toggle").find(".count").text(settings.label + " " + "(" + numVisibleVerticalTabs + ")");
 
             // Make 'active' tab always visible in horizontal container
             // and hidden in vertical container
@@ -110,7 +110,7 @@
             activeTab = TABS_OBJECT.tabsHorizontalContainer.find(".js-tab[tab-id=" + TABS_OBJECT.activeTabId + "]");
             activeTabCurrentIndex = activeTab.index();
             activeTabDefaultIndex = activeTab.attr("tab-index");
-            lastVisibleHorizontalTab = TABS_OBJECT.tabsHorizontalContainer.find(".js-tab:visible").last(); 
+            lastVisibleHorizontalTab = TABS_OBJECT.tabsHorizontalContainer.find(".js-tab:visible").last();
             lastVisibleTabIndex = lastVisibleHorizontalTab.index()
 
             lastHiddenVerticalTab = TABS_OBJECT.tabsVerticalContainer.find(".js-tab.hidden").last();
@@ -126,7 +126,7 @@
             }
 
             if ((activeTabCurrentIndex < activeTabDefaultIndex) && (activeTabCurrentIndex < lastVisibleTabIndex)) {
-              activeTab.insertAfter(lastVisibleHorizontalTab);  
+              activeTab.insertAfter(lastVisibleHorizontalTab);
             }
           }
 
@@ -173,11 +173,11 @@
           }()
 
 
-          /** 
+          /**
            * Change Tab
            */
           change_tab = function (e) {
-            TABS_OBJECT.tabsHorizontalContainer.parents(".responsive-tabs-container").on("click", ".js-tab", function(e) {
+            TABS_OBJECT.tabsHorizontalContainer.parents("."+settings.containerClass).on("click", ".js-tab", function(e) {
 
               // Set 'activeTabId' property from clicked tab
               var target = $(e.target);
@@ -192,9 +192,9 @@
               }
 
               TABS_OBJECT.tabsVerticalContainer.find(".js-tab").removeClass("active");
-              
+
               // Call 'sort_tabs' to re-arrange tabs based on their original index positions
-              // Call 'update_tabs' to resize tabs and determine which one to show/hide 
+              // Call 'update_tabs' to resize tabs and determine which one to show/hide
               sort_tabs(TABS_OBJECT.tabsHorizontalContainer);
               sort_tabs(TABS_OBJECT.tabsVerticalContainer);
               update_tabs();
